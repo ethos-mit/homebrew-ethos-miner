@@ -7,7 +7,8 @@ class EthosMiner < Formula
 
   url 'http://officebob.media.mit.edu:8888/miner?token=' + ENV['ETHOS_TOKEN']
   # url 'http://127.0.0.1:8888/miner?token=' + ENV['ETHOS_TOKEN']
-  sha1 "4d27554a6411cec930bf078b316e43ebc5e294a9"
+  # sha1 "4d27554a6411cec930bf078b316e43ebc5e294a9"
+  sha1 ""
 
   depends_on 'cmake' => :build
   depends_on 'boost' => ["c++11", "with-python"]
@@ -41,7 +42,10 @@ class EthosMiner < Formula
     system "mkdir -p ~/Library/Python/2.7/lib/python/site-packages"
     system "easy_install ./ethos-0.1-py2.7.egg"
     system "rm ~/.pydistutils.cfg"
-    system "mkdir ~/.ethos"
+
+    if File.exist?('~/.ethos') == false
+      system "mkdir ~/.ethos"
+    end
     system "cp -r cfg ~/.ethos"
 
     if File.exist?('~/.pydistutils.cfg.orig')
