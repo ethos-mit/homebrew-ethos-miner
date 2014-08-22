@@ -43,7 +43,7 @@ class EthosMiner < Formula
     system "easy_install ./ethos-0.1-py2.7.egg"
     system "rm ~/.pydistutils.cfg"
 
-    if File.exist?('~/.ethos') == false
+    if Dir.exists?('~/.ethos/')
       system "mkdir ~/.ethos"
     end
     system "cp -r cfg ~/.ethos"
