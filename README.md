@@ -14,7 +14,6 @@ Start with tapping into ethos' brew:
 
 ```
 brew tap ethos-mit/ethos
-brew install ethos
 ```
 
 Set ETHOS_TOKEN with the token you received:
