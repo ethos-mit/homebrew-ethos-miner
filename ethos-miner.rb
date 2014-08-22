@@ -41,6 +41,8 @@ class EthosMiner < Formula
     system "mkdir -p ~/Library/Python/2.7/lib/python/site-packages"
     system "easy_install ./ethos-0.1-py2.7.egg"
     system "rm ~/.pydistutils.cfg"
+    system "mkdir ~/.ethos"
+    system "cp -r cfg ~/.ethos"
 
     if File.exist?('~/.pydistutils.cfg.orig')
       system "mv ~/.pydistutils.cfg.orig ~/.pydistutils.cfg"
@@ -51,8 +53,8 @@ class EthosMiner < Formula
     system "make"
     system "make", "install"
 
-    # NOTE: work on this in order to create symlinks to ethos version
-    # bin.install_symlink bin/"eth"
+    # symlink
+    bin.install_symlink bin/"ethosd"
 
   end
 
