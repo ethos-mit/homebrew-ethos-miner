@@ -13,7 +13,7 @@ Homebrew is required for the installation.
 Start with tapping into ethos' brew:
 
 ```
-brew tap ethos-mit/ethos-miner
+brew tap guyz/ethos-miner
 ```
 
 Set ETHOS_TOKEN with the token you received:
@@ -24,7 +24,7 @@ export ETHOS_TOKEN=<token>
 
 Install ethos:
 ```
-brew install ethos
+brew install ethos-miner
 ```
 
 
