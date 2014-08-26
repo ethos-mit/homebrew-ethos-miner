@@ -7,7 +7,7 @@ class EthosMiner < Formula
 
   url 'http://officebob.media.mit.edu:8888/miner?token=' + ENV['ETHOS_TOKEN']
   # url 'http://127.0.0.1:8888/miner?token=' + ENV['ETHOS_TOKEN']
-  sha1 "44b37b5b4dc3ef03b64e827a86dae414b3da8a24"
+  sha1 "64a7d8018941c6c163280f0451c398e4bbfc6340"
   # sha1 ""
 
   depends_on 'cmake' => :build
@@ -20,6 +20,7 @@ class EthosMiner < Formula
   depends_on 'gmp'
   depends_on 'curl'
   depends_on 'jsonrpc'
+  depends_on 'pyasn1' => :python
 
   option "with-local", "Url is local" # TODO
   option 'without-jsonrpc', "Build without JSON-RPC dependency"
@@ -27,7 +28,8 @@ class EthosMiner < Formula
   option 'with-vmtrace', "Build with VMTRACE"
 
   def install
-    args = *std_cmake_args, "-DLANGUAGES=0"
+    args = *std_cmake_args
+    args << "-DLANGUAGES=0"
     args << "-DCMAKE_BUILD_TYPE=brew"
     args << "-DVMTRACE=1" if build.include? "with-vmtrace"
     args << "-DPARANOIA=0" if build.include? "without-paranoia"
@@ -40,10 +42,14 @@ class EthosMiner < Formula
 
     system "printf '[install]\ninstall_lib = ~/Library/Python/$py_version_short/lib/python/site-packages' > ~/.pydistutils.cfg"
     system "mkdir -p ~/Library/Python/2.7/lib/python/site-packages"
-    system "easy_install ./ethos-0.1-py2.7.egg"
+    if File.exist?('/usr/bin/easy_install')
+      system "/usr/bin/easy_install ./ethos-0.1-py2.7.egg"
+    else
+      system "`which easy_install` ./ethos-0.1-py2.7.egg"
+    end
     system "rm ~/.pydistutils.cfg"
 
-    if Dir.exists?('~/.ethos/')
+    if File.directory?('~/.ethos/')
       system "mkdir ~/.ethos"
     end
     system "cp -r cfg ~/.ethos"
