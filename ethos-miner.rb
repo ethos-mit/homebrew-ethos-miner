@@ -7,7 +7,7 @@ class EthosMiner < Formula
 
   url 'http://officebob.media.mit.edu:8888/miner?token=' + ENV['ETHOS_TOKEN']
   # url 'http://127.0.0.1:8888/miner?token=' + ENV['ETHOS_TOKEN']
-  sha1 ""
+  sha1 "44fe2f70c8f146ccaf2dedf8278a97dec8d12ff1"
   # sha1 ""
 
   depends_on 'cmake' => :build
@@ -20,21 +20,14 @@ class EthosMiner < Formula
   depends_on 'gmp'
   depends_on 'curl'
   depends_on 'jsonrpc'
-  depends_on 'pyasn1' => :python
+  # depends_on 'pyasn1' => :python
 
   option "with-local", "Url is local" # TODO
   option 'without-jsonrpc', "Build without JSON-RPC dependency"
   option "without-paranoia", "Build with -DPARANOIA=0"
   option 'with-vmtrace', "Build with VMTRACE"
 
-  resource 'pyasn1' do
-    url 'https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.7.tar.gz'
-    sha1 'e32b91c5a5d9609fb1d07d8685a884bab22ca6d0'
-  end
-
   def install
-    resource('pyasn1').stage { system "python", *install_args }
-    
     args = *std_cmake_args
     args << "-DLANGUAGES=0"
     args << "-DCMAKE_BUILD_TYPE=brew"
@@ -50,8 +43,10 @@ class EthosMiner < Formula
     system "printf '[install]\ninstall_lib = ~/Library/Python/$py_version_short/lib/python/site-packages' > ~/.pydistutils.cfg"
     system "mkdir -p ~/Library/Python/2.7/lib/python/site-packages"
     if File.exist?('/usr/bin/easy_install')
+      system "/usr/bin/easy_install ./pyasn1-0.1.7-py2.7.egg"
       system "/usr/bin/easy_install ./ethos-0.1-py2.7.egg"
     else
+      system "/usr/bin/easy_install ./pyasn1-0.1.7-py2.7.egg"
       system "`which easy_install` ./ethos-0.1-py2.7.egg"
     end
     system "rm ~/.pydistutils.cfg"
