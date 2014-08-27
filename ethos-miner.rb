@@ -7,7 +7,7 @@ class EthosMiner < Formula
 
   url 'http://officebob.media.mit.edu:8888/miner?token=' + ENV['ETHOS_TOKEN']
   # url 'http://127.0.0.1:8888/miner?token=' + ENV['ETHOS_TOKEN']
-  sha1 "64a7d8018941c6c163280f0451c398e4bbfc6340"
+  sha1 "32920838b3283066d6609c9a85d964bf6241960d"
   # sha1 ""
 
   depends_on 'cmake' => :build
