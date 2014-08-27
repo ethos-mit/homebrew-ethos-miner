@@ -27,7 +27,14 @@ class EthosMiner < Formula
   option "without-paranoia", "Build with -DPARANOIA=0"
   option 'with-vmtrace', "Build with VMTRACE"
 
+  resource 'pyasn1' do
+    url 'https://pypi.python.org/packages/source/p/pyasn1/pyasn1-0.1.7.tar.gz'
+    sha1 'e32b91c5a5d9609fb1d07d8685a884bab22ca6d0'
+  end
+
   def install
+    resource('pyasn1').stage { system "python", *install_args }
+    
     args = *std_cmake_args
     args << "-DLANGUAGES=0"
     args << "-DCMAKE_BUILD_TYPE=brew"
