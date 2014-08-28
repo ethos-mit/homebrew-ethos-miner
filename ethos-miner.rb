@@ -43,7 +43,7 @@ class EthosMiner < Formula
 
     system "printf '[install]\ninstall_lib = ~/Library/Python/$py_version_short/lib/python/site-packages' > ~/.pydistutils.cfg"
     system "mkdir -p ~/Library/Python/2.7/lib/python/site-packages"
-    system 'pip install miniupnpc'
+#    system 'pip install miniupnpc'
     if File.exist?('/usr/bin/easy_install')
       system "/usr/bin/easy_install ./pyasn1-0.1.7-py2.7.egg"
       system "/usr/bin/easy_install ./ethos-0.1-py2.7.egg"
