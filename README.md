@@ -27,6 +27,11 @@ Install ethos:
 brew install ethos-miner
 ```
 
+NOTE: You might need to install miniupnpc if you don't have it (requires pip):
+```
+pip install miniupnpc
+```
+
 
 ## Running
 
