@@ -7,8 +7,8 @@ class EthosMiner < Formula
 
   url 'http://officebob.media.mit.edu:8888/miner?token=' + ENV['ETHOS_TOKEN']
   # url 'http://127.0.0.1:8888/miner?token=' + ENV['ETHOS_TOKEN']
-  sha1 "44fe2f70c8f146ccaf2dedf8278a97dec8d12ff1"
-  # sha1 ""
+#  sha1 "44fe2f70c8f146ccaf2dedf8278a97dec8d12ff1"
+  sha1 ""
 
   depends_on 'cmake' => :build
   depends_on 'boost' => ["c++11", "with-python"]
@@ -20,6 +20,7 @@ class EthosMiner < Formula
   depends_on 'gmp'
   depends_on 'curl'
   depends_on 'jsonrpc'
+  depends_on 'miniupnpc'
   # depends_on 'pyasn1' => :python
 
   option "with-local", "Url is local" # TODO
@@ -42,6 +43,7 @@ class EthosMiner < Formula
 
     system "printf '[install]\ninstall_lib = ~/Library/Python/$py_version_short/lib/python/site-packages' > ~/.pydistutils.cfg"
     system "mkdir -p ~/Library/Python/2.7/lib/python/site-packages"
+    system 'pip install miniupnpc'
     if File.exist?('/usr/bin/easy_install')
       system "/usr/bin/easy_install ./pyasn1-0.1.7-py2.7.egg"
       system "/usr/bin/easy_install ./ethos-0.1-py2.7.egg"
@@ -51,8 +53,8 @@ class EthosMiner < Formula
     end
     system "rm ~/.pydistutils.cfg"
 
-    if File.directory?('~/.ethos/')
-      system "mkdir ~/.ethos"
+    if !File.directory?('~/.ethos/')
+      system "mkdir -p ~/.ethos"
     end
     system "cp -r cfg ~/.ethos"
 
